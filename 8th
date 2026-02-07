@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Muffin 💗</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffd6e8, #e0c3ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+/* floating hearts */
+.heart {
+  position: absolute;
+  bottom: -50px;
+  color: rgba(255, 105, 180, 0.5);
+  animation: floatUp 8s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* envelope */
+.envelope {
+  width: 260px;
+  height: 180px;
+  background: #ff9bbd;
+  position: relative;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 130px solid transparent;
+  border-right: 130px solid transparent;
+  border-top: 90px solid #ff6f9f;
+  transform-origin: top;
+  transition: 1s;
+}
+
+.envelope.open::before {
+  transform: rotateX(180deg);
+}
+
+.letter {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  width: 240px;
+  height: 140px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  opacity: 0;
+  transition: 1s;
+}
+
+.envelope.open .letter {
+  opacity: 1;
+}
+
+/* text */
+#text {
+  font-family: 'Pacifico', cursive;
+  font-size: 18px;
+  color: #ff4d88;
+  white-space: pre-line;
+  text-align: center;
+}
+
+/* flowers */
+.flowers {
+  position: absolute;
+  bottom: -10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  opacity: 0;
+}
+
+.flower {
+  font-size: 40px;
+  animation: bloom 1.5s ease forwards;
+}
+
+@keyframes bloom {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- music (replace song.mp3 with your file) -->
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div class="envelope" onclick="openLetter()">
+  <div class="letter">
+    <div id="text"></div>
+  </div>
+</div>
+
+<div class="flowers" id="flowers">
+  <div class="flower">🌸</div>
+  <div class="flower">🌷</div>
+  <div class="flower">🌼</div>
+  <div class="flower">🌺</div>
+</div>
+
+<script>
+const message = `I LOVE YOU MY LIL MUFFIN MUFFIN 💖
+
+HAPPY PROPOSE DAY
+CUTA PIEEEEEEEE 💕
+
+MWAH MWAH MWAH 😘
+
+CHHUTKU KAHI KE 💗`;
+
+let index = 0;
+
+function openLetter() {
+  const env = document.querySelector('.envelope');
+  env.classList.add('open');
+  document.getElementById('music').play();
+  typeText();
+}
+
+function typeText() {
+  if (index < message.length) {
+    document.getElementById('text').innerHTML += message.charAt(index);
+    index++;
+    setTimeout(typeText, 80);
+  } else {
+    document.getElementById('flowers').style.opacity = 1;
+  }
+}
+
+/* hearts generator */
+setInterval(() => {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerText = "💗";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = 5 + Math.random() * 5 + "s";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 9000);
+}, 500);
+</script>
+
+</body>
+</html>
